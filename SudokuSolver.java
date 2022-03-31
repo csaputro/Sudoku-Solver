@@ -5,7 +5,7 @@ public class SudokuSolver {
     public static void main(String[] args) {
 
         //declares 2D array to hold the board
-        int [][] board = {
+        int[][] board = {
                 {5, 3, 0, 0, 7, 0, 0, 0, 0},
                 {6, 0, 0, 1, 9, 5, 0, 0, 0},
                 {0, 9, 8, 0, 0, 0, 0, 6, 0},
@@ -17,7 +17,9 @@ public class SudokuSolver {
                 {0, 0, 0, 0, 8, 0, 0, 7, 9},
         };
 
-        //printBoard(board);
+        System.out.println("Board:");
+        printBoard(board);
+        System.out.println("-----------");
 
         if(solveBoard(board)){
             System.out.println("solved!");
@@ -36,9 +38,9 @@ public class SudokuSolver {
             }
             for(int col = 0; col < GridSize; col++){
                 if(col % 3 == 0 && col != 0){
-                    System.out.println("|");
+                    System.out.print("|");
                 }
-                System.out.println(board[row][col]);
+                System.out.print(board[row][col]);
             }
             System.out.println();
         }
@@ -67,7 +69,7 @@ public class SudokuSolver {
     }
 
     //traverse the 3 x 3 box to see if a number is in it
-    private static boolean numInBox(int[][] board, int number, int col, int row){
+    private static boolean numInBox(int[][] board, int number, int row, int col){
         // example, row = 1, 1 - (mod(1/3) = 1) = 0
         int localBoxRow = row - row % 3;
         int localBoxCol = col - col % 3;
