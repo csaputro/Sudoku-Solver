@@ -42,6 +42,7 @@ public class SudokuSolver {
 
     //traverse the 3 x 3 box to see if a number is in it
     private static boolean numInBox(int[][] board, int number, int col, int row){
+        // example, row = 1, 1 - (mod(1/3) = 1) = 0
         int localBoxRow = row - row % 3;
         int localBoxCol = col - col % 3;
 
@@ -55,6 +56,12 @@ public class SudokuSolver {
         return false;
     }
 
+    //this method checks for all 3 of them
+    private static boolean ValidPlacement(int[][] board, int number, int row, int col){
+        return !numInRow(board, number, row) &&
+                !numInCol(board, number, col) &&
+                !numInBox(board, number, row, col);
+    }
 
 
 }
