@@ -18,7 +18,7 @@ public class SudokuSolver {
         };
     }
 
-    //helper methods boolean if theres number true, else false
+    //helper methods boolean if theres number in row true, else false
     private static boolean numInRow(int[][] board, int number, int row){
 
         for(int i = 0; i < GridSize; i++){
@@ -28,4 +28,33 @@ public class SudokuSolver {
         }
         return false;
     }
+
+    //helper methods boolean if theres number in column true, else false
+    private static boolean numInCol(int[][] board, int number, int col){
+
+        for(int i = 0; i < GridSize; i++){
+            if(board[i][col] == number){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //traverse the 3 x 3 box to see if a number is in it
+    private static boolean numInBox(int[][] board, int number, int col, int row){
+        int localBoxRow = row - row % 3;
+        int localBoxCol = col - col % 3;
+
+        for(int i = localBoxRow; i < localBoxRow + 3; i++){
+            for(int j = localBoxCol; j < localBoxCol + 3; j++){
+                if(board[i][j] == number){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+
 }
