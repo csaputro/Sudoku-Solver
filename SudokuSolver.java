@@ -6,16 +6,42 @@ public class SudokuSolver {
 
         //declares 2D array to hold the board
         int [][] board = {
-                {7, 0, 2, 0, 5, 0, 6, 0, 0},
-                {0, 0, 0, 0, 0, 3, 0, 0, 0},
-                {1, 0, 0, 0, 0, 9, 5, 0, 0},
-                {8, 0, 0, 0, 0, 0, 0, 9, 0},
-                {0, 4, 3, 0, 0, 0, 7, 5, 0},
-                {0, 9, 0, 0, 0, 0, 0, 0, 8},
-                {0, 0, 9, 7, 0, 0, 0, 0, 5},
-                {0, 0, 0, 2, 0, 0, 0, 0, 0},
-                {0, 0, 7, 0, 4, 0, 2, 0, 3},
+                {5, 3, 0, 0, 7, 0, 0, 0, 0},
+                {6, 0, 0, 1, 9, 5, 0, 0, 0},
+                {0, 9, 8, 0, 0, 0, 0, 6, 0},
+                {8, 0, 0, 0, 6, 0, 0, 0, 3},
+                {4, 0, 0, 8, 0, 3, 0, 0, 1},
+                {7, 0, 0, 0, 2, 0, 0, 0, 6},
+                {0, 6, 0, 0, 0, 0, 2, 8, 0},
+                {0, 0, 0, 4, 1, 9, 0, 0, 5},
+                {0, 0, 0, 0, 8, 0, 0, 7, 9},
         };
+
+        //printBoard(board);
+
+        if(solveBoard(board)){
+            System.out.println("solved!");
+        }
+        else{
+            System.out.println("cant be solved, Error!");
+        }
+
+        printBoard(board);
+    }
+
+    private static void printBoard(int[][] board) {
+        for (int row = 0; row < GridSize; row++){
+            if(row % 3 == 0 && row != 0){
+                System.out.println("-----------");
+            }
+            for(int col = 0; col < GridSize; col++){
+                if(col % 3 == 0 && col != 0){
+                    System.out.println("|");
+                }
+                System.out.println(board[row][col]);
+            }
+            System.out.println();
+        }
     }
 
     //helper methods boolean if theres number in row true, else false
@@ -63,5 +89,30 @@ public class SudokuSolver {
                 !numInBox(board, number, row, col);
     }
 
+    //recursion to go through the board and fills it out one by one or return it back to 0
+    private static boolean solveBoard(int[][] board){
+        for(int row = 0; row < GridSize; row++){
+            for(int col = 0; col < GridSize; col++){
 
+                if(board[row][col] == 0){
+
+                    for(int numberTry = 1; numberTry <= GridSize; numberTry++){
+                        if(ValidPlacement(board, numberTry, row, col)){
+                            board[row][col] = numberTry;
+
+                            //recursion
+                            if(solveBoard(board)){
+                                return true;
+                            }
+                            else{
+                                board[row][col] = 0;
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
